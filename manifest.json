@@ -1,0 +1,41 @@
+{
+
+  "manifest_version": 2,
+  "name": "Automate",
+  "version": "0.1.0",
+
+  "description": "Automate navigation",
+
+  "permissions": [
+    "<all_urls>",
+    "activeTab",
+    "storage",
+    "downloads"
+  ],
+
+  "icons": {
+    "48": "icons/automate-48.png"
+  },
+
+  "background": {
+    "scripts" : ["background.js"]
+  },
+
+  "browser_action": {
+    "browser_style": true,
+    "default_title": "Automate",
+    "default_icon": {
+      "48": "icons/automate-48.png"
+    }
+  },
+
+  "sidebar_action": {
+    "default_title": "Automate",
+    "default_panel": "automate.html",
+    "default_icon": {
+      "48": "icons/automate-48.png"
+    },
+    "browser_style": true
+  }
+
+}
