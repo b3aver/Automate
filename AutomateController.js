@@ -44,7 +44,7 @@ AutomateController = {
           + (date.getMonth() + 1)
           + date.getDate()
           + '_' + date.getHours()
-          + ':' + date.getMinutes();
+          + date.getMinutes();
 
       // Save as file
       var blob = new Blob([result], {type: "application/json;charset=utf-8"})
