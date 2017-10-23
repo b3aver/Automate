@@ -104,13 +104,13 @@ AutomateController = {
     let automationNew = AutomateView.saveAutomation(guid);
     AutomateModel.saveAutomation(automationNew);
     AutomateView.setViewMode(guid);
-    AutomateView.show('Automation successfully saved.');
+    AutomateView.showMessage('Automation successfully saved.');
   },
 
   runAutomation: function(guid){
     let automation = AutomateModel.getAutomation(guid);
     Automation.run(automation);
-    AutomateView.show('Automation running...');
+    AutomateView.showMessage('Automation running...');
   },
 
   addAction: function(guid){
