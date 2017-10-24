@@ -1,7 +1,8 @@
+/* TODO: remove?
 html, body {
     width: 350px;
 }
-
+*/
 a {
     margin: 10px;
     display: inline-block;
@@ -14,4 +15,30 @@ a {
 
 .clickable {
     cursor: pointer;
+}
+
+
+/* Automation */
+
+#automations, .actions {
+    list-style: none;
+    padding: 2px;
+}
+
+
+.nameAutomation.viewMode {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.actions .action:nth-child(2n+1) {
+    background: lightgrey;
+}
+
+.actions .action:nth-child(2n) {
+    background: grey;
+}
+
+.actions .action {
+    padding: 5px;
 }
