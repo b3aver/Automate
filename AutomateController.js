@@ -61,11 +61,14 @@ AutomateController = {
 
   importFromFile: function(){
     // TODO: ask confirmation because the automations will be overwritten
-    let filename = jQuery('#importFileInput').val();
-    let path = jQuery('#importFilePathInput').val() + '/' + filename;
-    if(!filename){
+    let filename = jQuery('#importFileInput').val().replace('C:\\fakepath\\', '');
+    if (!filename) {
       AutomateView.showError('Select a filename');
     } else {
+      let path = jQuery('#importFilePathInput').val() + '/' + filename;
+      if (!path.startsWith('file://')) {
+        path = 'file://' + path;
+      }
       fetch(path, {mode:'same-origin'})   // <-- important
         .then(function(result){
           return result.blob();
