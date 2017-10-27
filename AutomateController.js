@@ -113,7 +113,7 @@ AutomateController = {
   runAutomation: function(guid){
     let automation = AutomateModel.getAutomation(guid);
     Automation.run(automation);
-    AutomateView.showMessage('Automation running...');
+    AutomateView.showMessage('Automation is running...');
   },
 
   addAction: function(guid){

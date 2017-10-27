@@ -139,6 +139,7 @@ AutomateView = {
     switch(actionType){
     case "gotoUrl":
     case "submit":
+    case "click":
       numParams = 1;
       break;
     case "fill":
