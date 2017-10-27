@@ -137,12 +137,15 @@ AutomateView = {
     let actionType = jAction.find('.actionType').val();
     let numParams = 1;
     switch(actionType){
-    case "gotoUrl":
-    case "submit":
-    case "click":
+    case 'reload':
+      numParams = 0;
+      break;
+    case 'gotoUrl':
+    case 'submit':
+    case 'click':
       numParams = 1;
       break;
-    case "fill":
+    case 'fill':
       numParams = 2;
     }
     let numParamsActual = jAction.find('.parameters .parameter').length;
