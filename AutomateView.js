@@ -153,9 +153,12 @@ AutomateView = {
     if(numParamsActual > numParams){
       jAction.find('> .parameters .parameter:nth-last-child(-n+'
                    + (numParamsActual - numParams) + ')').remove();
-    } else if(numParamsActual < numParams) {
-      jQuery('#templates .parameter').clone()
-        .appendTo(jAction.find('.parameters'));
+    } else {
+      while(numParamsActual < numParams) {
+        jQuery('#templates .parameter').clone()
+          .appendTo(jAction.find('.parameters'));
+        numParamsActual++;
+      }
     }
     if(actionType == 'fillPassword'){
       jAction.find('.parameters .parameter:nth-child(2)').attr('type', 'password');
