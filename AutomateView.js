@@ -146,6 +146,7 @@ AutomateView = {
       numParams = 1;
       break;
     case 'fill':
+    case 'fillPassword':
       numParams = 2;
     }
     let numParamsActual = jAction.find('.parameters .parameter').length;
@@ -155,6 +156,11 @@ AutomateView = {
     } else if(numParamsActual < numParams) {
       jQuery('#templates .parameter').clone()
         .appendTo(jAction.find('.parameters'));
+    }
+    if(actionType == 'fillPassword'){
+      jAction.find('.parameters .parameter:nth-child(2)').attr('type', 'password');
+    } else {
+      jAction.find('.parameters .parameter:nth-child(2)').attr('type', 'text');
     }
   },
 };
