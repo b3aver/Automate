@@ -119,6 +119,7 @@ AutomateController = {
   addAction: function(guid){
     let action = new Action();
     AutomateView.addAction(guid, action);
+    AutomateView.setEditMode(guid);
   },
 
   deleteAction: function(automationGuid, actionGuid){

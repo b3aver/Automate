@@ -42,3 +42,16 @@ a {
 .actions .action {
     padding: 5px;
 }
+
+.actionType.viewMode {
+    font-weight: bold;
+}
+
+.parameterValue.viewMode {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
+    text-overflow: ellipsis;
+    font-style: italic;
+}

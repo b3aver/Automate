@@ -67,11 +67,21 @@ AutomateView = {
     let actions = [];
     jQuery('#' + guid + ' .actions li.action').each(function(){
       let actionGuid = jQuery(this).find('.guid').val();
-      let actionType = jQuery(this).find('.actionType').val();
+      let actionType = jQuery(this).find('select.actionType').val();
+      let actionTypeLabel = jQuery(this).find('select.actionType option:selected').text();
+      // fill viewMode value
+      jQuery(this).find('.actionType.viewMode').html(actionTypeLabel);
       let params = [];
-      jQuery(this).find('.parameters input').each(function(){
-        let param = jQuery(this).val();
+      jQuery(this).find('.parameters .parameter').each(function(index){
+        let param = jQuery(this).find('input.parameterValue').val();
         params.push(param);
+        // fill viewMode value
+        if (actionType == 'fillPassword' && index == 1){
+          jQuery(this).find('.parameterValue.viewMode').html('***');
+        } else {
+          jQuery(this).find('.parameterValue.viewMode').html(param);
+          jQuery(this).find('.parameterValue.viewMode').attr('title', param);
+        }
       });
       let action = new Action(actionGuid, actionType, params);
       actions.push(action);
@@ -87,15 +97,11 @@ AutomateView = {
   setEditMode: function(guid){
     jQuery('#' + guid + ' .viewMode').hide();
     jQuery('#' + guid + ' .editMode').show();
-    jQuery('#' + guid + ' .actionType').prop('disabled', false);
-    jQuery('#' + guid + ' .parameters input').prop('disabled', false);
   },
 
   setViewMode: function(guid){
     jQuery('#' + guid + ' .viewMode').show();
     jQuery('#' + guid + ' .editMode').hide();
-    jQuery('#' + guid + ' .actionType').prop('disabled', true);
-    jQuery('#' + guid + ' .parameters input').prop('disabled', true);
   },
 
   addAction: function(automationGuid, action){
@@ -107,12 +113,14 @@ AutomateView = {
     jAction.attr('id', action.guid);
 
     // action type
-    jAction.find('.actionType').val(action.actionType);
+    jAction.find('select.actionType').val(action.actionType);
+    let actionTypeLabel = jAction.find('select.actionType option:selected').text();
+    jAction.find('.actionType.viewMode').html(actionTypeLabel);
     // guid
     jAction.find('> input.guid').val(action.guid);
 
     // action type event
-    jAction.find('.actionType').change(function(){
+    jAction.find('select.actionType').change(function(){
       AutomateView.onChangeActionType(automationGuid, action.guid);
     });
     // delete action button
@@ -121,10 +129,17 @@ AutomateView = {
     });
 
     // iteratively add parameters
-    action.params.forEach(function(param){
+    action.params.forEach(function(param, index){
       jQuery('#templates .parameter').clone()
         .appendTo(jAction.find('.parameters'));
-      jAction.find('.parameters .parameter:last-child').val(param);
+      let jParameter = jAction.find('.parameters .parameter:last-child');
+      jParameter.find('input.parameterValue').val(param);
+      if (action.actionType == 'fillPassword' && index == 1){
+        jParameter.find('.parameterValue.viewMode').html('***');
+      } else {
+        jParameter.find('.parameterValue.viewMode').html(param);
+        jParameter.find('.parameterValue.viewMode').attr('title', param);
+      }
     });
   },
 
@@ -134,7 +149,7 @@ AutomateView = {
 
   onChangeActionType: function(automationGuid, actionGuid){
     let jAction = jQuery('#' + automationGuid + ' #' + actionGuid);
-    let actionType = jAction.find('.actionType').val();
+    let actionType = jAction.find('select.actionType').val();
     let numParams = 1;
     switch(actionType){
     case 'reload':
@@ -160,10 +175,12 @@ AutomateView = {
         numParamsActual++;
       }
     }
+    let jParameterValue = jAction.find('.parameters .parameter:nth-child(2)'
+                                       + ' input.parameterValue');
     if(actionType == 'fillPassword'){
-      jAction.find('.parameters .parameter:nth-child(2)').attr('type', 'password');
+      jParameterValue.attr('type', 'password');
     } else {
-      jAction.find('.parameters .parameter:nth-child(2)').attr('type', 'text');
+      jParameterValue.attr('type', 'text');
     }
   },
 };

@@ -7,13 +7,13 @@
           rel="stylesheet">
     <link rel="stylesheet" href="automate.css"/>
   </head>
-  
+
   <body>
     <div class="panel">
       <div class="panel-section panel-section-header">
         <div class="text-section-header">Automate Navigation</div>
       </div>
-      
+
       <i id="save" class="material-icons clickable" title="Save All">save</i>
       <i id="refresh" class="material-icons clickable" title="Refresh">refresh</i>
       <i id="export" class="material-icons clickable"
@@ -22,21 +22,21 @@
          title="Import">file_upload</i>
       path: <input type="input" id="importFilePathInput" value="file://" />
       <input type="file" id="importFileInput" />
-      
+
       <br />
       <i id="addAutomationButton" class="material-icons clickable"
          title="New Automation">add</i>
-      
+
       <ul id="automations"></ul>
-      
+
     </div>
-    
+
     <div id="templates" style="display:none;">
       <li class="automation">
         <input type="hidden" class="guid" />
         <span class="nameAutomation viewMode"></span>
         <input type="text" class="nameAutomation editMode" />
-        
+
         <i class="editAutomationButton viewMode material-icons clickable"
            title="Edit Automation">create</i>
         <i class="saveAutomationButton editMode material-icons clickable"
@@ -45,18 +45,19 @@
            title="Delete Automation">delete</i>
         <i class="runAutomationButton viewMode material-icons clickable"
            title="Run Automation">play_arrow</i>
-        
+
         <br />
         <i class="addActionButton editMode material-icons clickable"
            title="Add Action">add</i>
-        
+
         <ul class="actions">
         </ul>
       </li>
-      
+
       <li class="action">
         <input type="hidden" class="guid" />
-        <select class="actionType">
+        <span class="actionType viewMode"></span>
+        <select class="actionType editMode">
           <option value="" disabled="true">select an action type</option>
           <option value="gotoUrl">Go to Url</option>
           <option value="fill">Fill</option>
@@ -67,15 +68,18 @@
         </select>
         <i class="deleteActionButton editMode material-icons clickable"
            title="Delete Action">delete</i>
-        
+
         <div class="parameters"></div>
-        
+
       </li>
-      
-      <input type="text" class="parameter" />
+
+      <div class="parameter">
+        <span class="parameterValue viewMode"></span>
+        <input type="text" class="parameterValue editMode" />
+      </div>
 
     </div>
-    
+
     <script src="lib/jquery-3.2.1.min.js"></script>
     <script src="lib/Automation.js"></script>
     <script src="lib/automate_lib.js"></script>
@@ -84,5 +88,5 @@
     <script src="AutomateController.js"></script>
     <script src="automate.js"></script>
   </body>
-  
+
 </html>
