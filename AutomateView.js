@@ -23,9 +23,19 @@ AutomateView = {
   },
 
   addAutomation: function(automation){
-    // add the automation
-    jQuery('#templates .automation').clone().appendTo('#automations');
-    let jAutomation = jQuery('#automations .automation:last-child');
+    // find the automation
+    let jAutomation = jQuery('li.automation#' + automation.guid);
+    // check if it exists
+    if (jAutomation.length > 0){
+      // destroy and rebuild the fields of the automation
+      let jAutomationNew = jQuery('#templates .automation').clone();
+      jAutomation.replaceWith(jAutomationNew);
+      jAutomation = jAutomationNew;
+    } else {
+      // create the fields for a new automation
+      jQuery('#templates .automation').clone().appendTo('#automations');
+      jAutomation = jQuery('#automations .automation:last-child');
+    }
     jAutomation.attr('id', automation.guid);
     // name
     jAutomation.find('.nameAutomation.viewMode').html(automation.name);
@@ -40,6 +50,10 @@ AutomateView = {
     // edit automation button
     jAutomation.find('.editAutomationButton').click(function(){
       AutomateController.editAutomation(automation.guid);
+    });
+    // cancel edit automation button
+    jAutomation.find('.cancelEditAutomationButton').click(function(){
+      AutomateController.cancelEditAutomation(automation.guid);
     });
     // save automation button
     jAutomation.find('.saveAutomationButton').click(function(){
@@ -107,8 +121,8 @@ AutomateView = {
   addAction: function(automationGuid, action){
     // add the action
     jQuery('#templates .action').clone()
-      .appendTo(jQuery('#' + automationGuid + ' .actions'));
-    let jAction = jQuery('#automations .automation:last-child'
+      .appendTo(jQuery('.automation#' + automationGuid + ' .actions'));
+    let jAction = jQuery('.automation#' + automationGuid
                          + ' .action:last-child');
     jAction.attr('id', action.guid);
 

@@ -41,10 +41,10 @@ AutomateController = {
       // now
       let date = new Date();
       let dateFormatted = '' + date.getFullYear()
-          + (date.getMonth() + 1)
-          + date.getDate()
-          + '_' + date.getHours()
-          + date.getMinutes();
+          + ('0' + (date.getMonth() + 1)).slice(-2)
+          + ('0' + date.getDate()).slice(-2)
+          + '_' + ('0' + date.getHours()).slice(-2)
+          + ('0' + date.getMinutes()).slice(-2);
 
       // Save as file
       var blob = new Blob([result], {type: "application/json;charset=utf-8"})
@@ -108,6 +108,13 @@ AutomateController = {
     AutomateModel.saveAutomation(automationNew);
     AutomateView.setViewMode(guid);
     AutomateView.showMessage('Automation successfully saved.');
+  },
+
+  cancelEditAutomation: function(guid){
+    let automation = AutomateModel.getAutomation(guid);
+    AutomateView.addAutomation(automation);
+    AutomateView.setViewMode(guid);
+    AutomateView.showMessage('Automation\'s edits cancelled.');
   },
 
   runAutomation: function(guid){
