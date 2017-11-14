@@ -80,21 +80,29 @@ AutomateView = {
     // populate actions
     let actions = [];
     jQuery('#' + guid + ' .actions li.action').each(function(){
-      let actionGuid = jQuery(this).find('.guid').val();
-      let actionType = jQuery(this).find('select.actionType').val();
-      let actionTypeLabel = jQuery(this).find('select.actionType option:selected').text();
+      let jAction = jQuery(this);
+      let actionGuid = jAction.find('.guid').val();
+      let actionType = jAction.find('select.actionType').val();
+      let actionTypeLabel = jAction.find('select.actionType option:selected').text();
       // fill viewMode value
-      jQuery(this).find('.actionType.viewMode').html(actionTypeLabel);
+      jAction.find('.actionType.viewMode').html(actionTypeLabel);
       let params = [];
-      jQuery(this).find('.parameters .parameter').each(function(index){
-        let param = jQuery(this).find('input.parameterValue').val();
+      jAction.find('.parameters .parameter').each(function(index){
+        let jParameter = jQuery(this);
+        let param = AutomateView.getParameterValue(jParameter, actionType);
         params.push(param);
         // fill viewMode value
         if (actionType == 'fillPassword' && index == 1){
-          jQuery(this).find('.parameterValue.viewMode').html('***');
-        } else {
-          jQuery(this).find('.parameterValue.viewMode').html(param);
-          jQuery(this).find('.parameterValue.viewMode').attr('title', param);
+          jParameter.find('.parameterValue.viewMode').html('***');
+        } else if (actionType == 'reload') {
+          if (param){
+            jParameter.find('.parameterValue.viewMode').html('clear cache');
+          } else {
+            jParameter.find('.parameterValue.viewMode').html('');
+          }
+        }else {
+          jParameter.find('.parameterValue.viewMode').html(param);
+          jParameter.find('.parameterValue.viewMode').attr('title', param);
         }
       });
       let action = new Action(actionGuid, actionType, params);
@@ -147,14 +155,37 @@ AutomateView = {
       jQuery('#templates .parameter').clone()
         .appendTo(jAction.find('.parameters'));
       let jParameter = jAction.find('.parameters .parameter:last-child');
-      jParameter.find('input.parameterValue').val(param);
-      if (action.actionType == 'fillPassword' && index == 1){
-        jParameter.find('.parameterValue.viewMode').html('***');
-      } else {
-        jParameter.find('.parameterValue.viewMode').html(param);
-        jParameter.find('.parameterValue.viewMode').attr('title', param);
-      }
+      AutomateView.prepareParameter(jParameter, action.actionType, param, index + 1);
     });
+  },
+
+  prepareParameter: function(jParameter, actionType, param, nth){
+      jParameter.find('.parameterValue.editMode').val(param);
+      jParameter.find('.parameterValueLabel.editMode').html('');
+    if (actionType == 'fillPassword' && nth == 2){
+      jParameter.find('.parameterValue.editMode').attr('type', 'password');
+      jParameter.find('.parameterValue.viewMode').html('***');
+    } else if (actionType == 'reload'){
+      let checked = param;
+      jParameter.find('.parameterValue.editMode').attr('type', 'checkbox');
+      jParameter.find('.parameterValue.editMode').prop('checked', checked);
+      jParameter.find('.parameterValueLabel.editMode').html('clear cache');
+      if (checked){
+        jParameter.find('.parameterValue.viewMode').html('clear cache');
+      }
+    } else {
+      jParameter.find('.parameterValue.editMode').attr('type', 'text');
+      jParameter.find('.parameterValue.viewMode').html(param);
+      jParameter.find('.parameterValue.viewMode').attr('title', param);
+    }
+  },
+
+  getParameterValue: function(jParameter, actionType){
+    let param = jParameter.find('.parameterValue.editMode').val();
+    if (actionType == 'reload'){
+      param = jParameter.find('.parameterValue.editMode').is(':checked');
+    }
+    return param;
   },
 
   deleteAction: function(automationGuid, actionGuid){
@@ -167,7 +198,7 @@ AutomateView = {
     let numParams = 1;
     switch(actionType){
     case 'reload':
-      numParams = 0;
+      numParams = 1;
       break;
     case 'gotoUrl':
     case 'submit':
@@ -189,12 +220,13 @@ AutomateView = {
         numParamsActual++;
       }
     }
-    let jParameterValue = jAction.find('.parameters .parameter:nth-child(2)'
-                                       + ' input.parameterValue');
-    if(actionType == 'fillPassword'){
-      jParameterValue.attr('type', 'password');
-    } else {
-      jParameterValue.attr('type', 'text');
-    }
+
+    jAction.find('.parameters .parameter').each(function(index){
+      let jParameter = jQuery(this);
+      let param = AutomateView.getParameterValue(jParameter, actionType);
+      AutomateView.prepareParameter(jParameter, actionType, param, index + 1);
+      jParameter.find('.viewMode').hide();
+      jParameter.find('.editMode').show();
+    });
   },
 };
