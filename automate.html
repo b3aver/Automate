@@ -5,27 +5,21 @@
     <meta charset="utf-8">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet">
+    <link rel="stylesheet" href="common.css"/>
     <link rel="stylesheet" href="automate.css"/>
   </head>
 
   <body>
     <div class="panel">
       <div class="panel-section panel-section-header">
-        <div class="text-section-header">Automate Navigation</div>
+        <i id="save" class="material-icons clickable" title="Save All">save</i>
+        <i id="refresh" class="material-icons clickable"
+           title="Refresh">refresh</i>
+        <i id="options" class="material-icons clickable"
+           title="Open Options Page">build</i>
+        <i id="addAutomationButton" class="material-icons clickable"
+           title="New Automation">add</i>
       </div>
-
-      <i id="save" class="material-icons clickable" title="Save All">save</i>
-      <i id="refresh" class="material-icons clickable" title="Refresh">refresh</i>
-      <i id="export" class="material-icons clickable"
-         title="Export">file_download</i>
-      <i id="import" class="material-icons clickable"
-         title="Import">file_upload</i>
-      path: <input type="input" id="importFilePathInput" value="file://" />
-      <input type="file" id="importFileInput" />
-
-      <br />
-      <i id="addAutomationButton" class="material-icons clickable"
-         title="New Automation">add</i>
 
       <ul id="automations"></ul>
 

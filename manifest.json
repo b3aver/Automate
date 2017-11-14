@@ -36,6 +36,11 @@
       "48": "icons/automate-48.png"
     },
     "browser_style": true
+  },
+
+  "options_ui": {
+    "page": "options.html",
+    "browser_style": true
   }
 
 }
