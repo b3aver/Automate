@@ -82,9 +82,13 @@ AutomateController = {
 
   cancelEditAutomation: function(guid){
     let automation = AutomateModel.getAutomation(guid);
-    AutomateView.addAutomation(automation);
-    AutomateView.setViewMode(guid);
-    AutomateView.showMessage('Automation\'s edits cancelled.');
+    if (automation == undefined) {
+      AutomateView.deleteAutomation(guid);
+    } else {
+      AutomateView.addAutomation(automation);
+      AutomateView.setViewMode(guid);
+      AutomateView.showMessage('Automation\'s edits cancelled.');
+    }
   },
 
   runAutomation: function(guid){

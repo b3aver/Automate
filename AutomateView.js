@@ -67,6 +67,14 @@ AutomateView = {
     jAutomation.find('.addActionButton').click(function(){
       AutomateController.addAction(automation.guid);
     });
+    // drop up button
+    jAutomation.find('.dropUpActionsButton').click(function(){
+      AutomateView.dropUpActions(automation.guid);
+    });
+    // drop down button
+    jAutomation.find('.dropDownActionsButton').click(function(){
+      AutomateView.dropDownActions(automation.guid);
+    });
 
     // iteratively add actions
     automation.actions.forEach(function(action){
@@ -117,6 +125,7 @@ AutomateView = {
   },
 
   setEditMode: function(guid){
+    AutomateView.dropDownActions(guid);
     jQuery('#' + guid + ' .viewMode').hide();
     jQuery('#' + guid + ' .editMode').show();
   },
@@ -124,6 +133,7 @@ AutomateView = {
   setViewMode: function(guid){
     jQuery('#' + guid + ' .viewMode').show();
     jQuery('#' + guid + ' .editMode').hide();
+    AutomateView.dropDownActions(guid);
   },
 
   addAction: function(automationGuid, action){
@@ -160,8 +170,8 @@ AutomateView = {
   },
 
   prepareParameter: function(jParameter, actionType, param, nth){
-      jParameter.find('.parameterValue.editMode').val(param);
-      jParameter.find('.parameterValueLabel.editMode').html('');
+    jParameter.find('.parameterValue.editMode').val(param);
+    jParameter.find('.parameterValueLabel.editMode').html('');
     if (actionType == 'fillPassword' && nth == 2){
       jParameter.find('.parameterValue.editMode').attr('type', 'password');
       jParameter.find('.parameterValue.viewMode').html('***');
@@ -228,5 +238,17 @@ AutomateView = {
       jParameter.find('.viewMode').hide();
       jParameter.find('.editMode').show();
     });
+  },
+
+  /* drop up/down actions */
+  dropUpActions: function(automationGuid) {
+    let jAutomation = jQuery('.automation#' + automationGuid);
+    jAutomation.find('.actions, .dropUpActionsButton').hide();
+    jAutomation.find('.dropDownActionsButton').show();
+  },
+  dropDownActions: function(automationGuid) {
+    let jAutomation = jQuery('.automation#' + automationGuid);
+    jAutomation.find('.actions, .dropUpActionsButton').show();
+    jAutomation.find('.dropDownActionsButton').hide();
   },
 };
