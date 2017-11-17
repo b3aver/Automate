@@ -13,6 +13,8 @@
     "downloads"
   ],
 
+  "content_security_policy": "script-src 'self' https://*.jquery.com; object-src 'self'",
+
   "icons": {
     "48": "icons/automate-48.png"
   },

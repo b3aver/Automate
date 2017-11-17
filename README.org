@@ -1,5 +1,5 @@
 * Automate
 
-  A Firefox extension for automate the navigation
+  A Firefox extension for automating the navigation
 
 

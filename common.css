@@ -16,3 +16,6 @@ a {
     cursor: pointer;
 }
 
+.handle {
+    cursor: grab;
+}

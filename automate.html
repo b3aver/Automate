@@ -7,6 +7,7 @@
           rel="stylesheet">
     <link rel="stylesheet" href="common.css"/>
     <link rel="stylesheet" href="automate.css"/>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
   </head>
 
   <body>
@@ -47,7 +48,6 @@
         <i class="runAutomationButton viewMode material-icons clickable"
            title="Run Automation">play_arrow</i>
 
-        <br />
         <i class="addActionButton editMode material-icons clickable"
            title="Add Action">add</i>
 
@@ -60,21 +60,28 @@
 
       <li class="action">
         <input type="hidden" class="guid" />
-        <span class="actionType viewMode"></span>
-        <select class="actionType editMode">
-          <option value="" disabled="true">select an action type</option>
-          <option value="gotoUrl">Go to Url</option>
-          <option value="fill">Fill</option>
-          <option value="fillPassword">Fill Password</option>
-          <option value="submit">Submit</option>
-          <option value="click">Click</option>
-          <option value="reload">Reload</option>
-        </select>
-        <i class="deleteActionButton editMode material-icons clickable"
-           title="Delete Action">delete</i>
 
-        <div class="parameters"></div>
+        <div class="controls">
+          <i class="moveActionButton editMode material-icons handle"
+             title="Move Action">drag_handle</i>
+          <i class="deleteActionButton editMode material-icons clickable"
+             title="Delete Action">delete</i>
+        </div>
 
+        <div class="content">
+          <span class="actionType viewMode"></span>
+          <select class="actionType editMode">
+            <option value="" disabled="true">select an action type</option>
+            <option value="gotoUrl">Go to Url</option>
+            <option value="fill">Fill</option>
+            <option value="fillPassword">Fill Password</option>
+            <option value="submit">Submit</option>
+            <option value="click">Click</option>
+            <option value="reload">Reload</option>
+          </select>
+
+          <div class="parameters"></div>
+        </div>
       </li>
 
       <div class="parameter">
@@ -85,7 +92,8 @@
 
     </div>
 
-    <script src="lib/jquery-3.2.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <script src="lib/Automation.js"></script>
     <script src="lib/automate_lib.js"></script>
     <script src="AutomateModel.js"></script>

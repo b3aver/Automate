@@ -80,6 +80,12 @@ AutomateView = {
     automation.actions.forEach(function(action){
       AutomateView.addAction(automation.guid, action);
     });
+
+    // add sortable
+    jAutomation.find('.actions').sortable({
+      handle: ".handle",
+      placeholder: "action action-empty"
+    });
   },
 
   saveAutomation: function(guid){
