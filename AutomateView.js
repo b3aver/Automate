@@ -130,7 +130,16 @@ AutomateView = {
     jQuery('#' + guid).remove();
   },
 
+  disableEdit: function(){
+    jQuery('.automation .editAutomationButton').addClass('md-inactive');
+  },
+
+  enableEdit: function(){
+    jQuery('.automation .editAutomationButton').removeClass('md-inactive');
+  },
+
   setEditMode: function(guid){
+    AutomateView.disableEdit();
     AutomateView.dropDownActions(guid);
     jQuery('#' + guid + ' .viewMode').hide();
     jQuery('#' + guid + ' .editMode').show();
@@ -140,6 +149,7 @@ AutomateView = {
     jQuery('#' + guid + ' .viewMode').show();
     jQuery('#' + guid + ' .editMode').hide();
     AutomateView.dropDownActions(guid);
+    AutomateView.enableEdit();
   },
 
   addAction: function(automationGuid, action){

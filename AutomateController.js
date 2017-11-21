@@ -70,7 +70,9 @@ AutomateController = {
   },
 
   editAutomation: function(guid){
-    AutomateView.setEditMode(guid);
+    if (!jQuery('#' + guid + ' .editAutomationButton').hasClass('md-inactive')) {
+      AutomateView.setEditMode(guid);
+    }
   },
 
   saveAutomation: function(guid){
@@ -84,6 +86,7 @@ AutomateController = {
     let automation = AutomateModel.getAutomation(guid);
     if (automation == undefined) {
       AutomateView.deleteAutomation(guid);
+      AutomateView.enableEdit();
     } else {
       AutomateView.addAutomation(automation);
       AutomateView.setViewMode(guid);
