@@ -28,7 +28,12 @@
     "default_title": "Automate",
     "default_icon": {
       "48": "icons/automate-48.png"
-    }
+    },
+    "theme_icons": [{
+      "dark": "icons/automate-48-dark.png",
+      "light": "icons/automate-48-light.png",
+      "size": 48
+    }]
   },
 
   "sidebar_action": {
