@@ -1,16 +1,18 @@
 
 /* Automation */
 
-#automations, .actions {
+ul#automations, ul.actions {
     list-style: none;
     padding: 2px;
 }
-
 
 .nameAutomation.viewMode {
     font-size: 1.5em;
     font-weight: bold;
 }
+
+
+/* Action */
 
 .action {
     padding: 5px;
@@ -52,11 +54,6 @@
     grid-column: 1;
 }
 
-.actions .action.action-empty {
-    height: 50px;
-    background: #ececec;
-}
-
 .actionType.viewMode {
     font-weight: bold;
 }
@@ -70,6 +67,20 @@
     font-style: italic;
 }
 
-.actionType.editMode,.parameters,.parameter,.parameter input.editMode {
+.actionType.editMode,.parameters,.parameter,
+.parameter input.editMode[type!="checkbox"] {
     width: 100%;
+}
+
+
+/* sortable */
+
+.automation.automation-empty {
+    height: 50px;
+    background: #ececec;
+}
+
+.actions .action.action-empty {
+    height: 50px;
+    background: #ececec;
 }

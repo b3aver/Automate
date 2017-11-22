@@ -5,7 +5,7 @@ AutomateController = {
     AutomateController.refresh();
 
     jQuery('#save').click(function(){
-      AutomateModel.save();
+      AutomateController.save();
     });
 
     jQuery('#refresh').click(function(){
@@ -22,9 +22,16 @@ AutomateController = {
 
   },
 
+  save: function(){
+    AutomateModel.save().then(function(){
+      AutomateView.showMessage('Data saved in the storage.');
+    });
+  },
+
   refresh: function(){
     AutomateModel.load().then(function(automations){
       AutomateView.refresh(automations);
+      AutomateView.showMessage('Data reloaded from the storage.');
     });
   },
 
@@ -98,6 +105,14 @@ AutomateController = {
     let automation = AutomateModel.getAutomation(guid);
     Automation.run(automation);
     AutomateView.showMessage('Automation is running...');
+  },
+
+  saveAutomationsOrder: function(){
+    let automationsGuid = AutomateView.getAutomationsOrder();
+    AutomateModel.orderAutomations(automationsGuid);
+    AutomateModel.save().then(function(){
+      AutomateView.showMessage('Sorting ended!!!');
+    });
   },
 
   addAction: function(guid){

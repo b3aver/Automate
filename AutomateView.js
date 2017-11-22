@@ -1,7 +1,15 @@
 AutomateView = {
 
   prepare: function(){
-
+    // add sortable for Automations
+    jQuery('#automations').sortable({
+      handle: ".handle",
+      cursor: "grabbing",
+      placeholder: "automation automation-empty",
+      stop: function(){
+        AutomateController.saveAutomationsOrder();
+      }
+    });
   },
 
   showMessage: function(message){
@@ -81,9 +89,10 @@ AutomateView = {
       AutomateView.addAction(automation.guid, action);
     });
 
-    // add sortable
+    // add sortable for Actions
     jAutomation.find('.actions').sortable({
       handle: ".handle",
+      cursor: "grabbing",
       placeholder: "action action-empty"
     });
   },
@@ -136,6 +145,14 @@ AutomateView = {
 
   enableEdit: function(){
     jQuery('.automation .editAutomationButton').removeClass('md-inactive');
+  },
+
+  getAutomationsOrder: function(){
+    let automationsGuid = [];
+    jQuery('.automation[id]').each(function(){
+      automationsGuid.push(jQuery(this).attr('id'));
+    });
+    return automationsGuid;
   },
 
   setEditMode: function(guid){
@@ -267,4 +284,5 @@ AutomateView = {
     jAutomation.find('.actions, .dropUpActionsButton').show();
     jAutomation.find('.dropDownActionsButton').hide();
   },
+
 };

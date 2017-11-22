@@ -7,7 +7,7 @@ AutomateModel = {
   },
 
   save: function(){
-    browser.storage.local.set({
+    return browser.storage.local.set({
       automations: this.automations,
     });
   },
@@ -26,6 +26,14 @@ AutomateModel = {
 
   setAutomations: function(automations){
     this.automations = automations;
+  },
+
+  orderAutomations: function(automationsGuid){
+    let automationsNew = [];
+    automationsGuid.forEach(function(guid){
+      automationsNew.push(AutomateModel.getAutomation(guid));
+    });
+    AutomateModel.setAutomations(automationsNew);
   },
 
   getAutomation: function(guid){
