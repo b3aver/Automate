@@ -3,6 +3,9 @@ jQuery(function(){
   AutomateModel.load().then(function(automations){
     // Convert object to a string.
     let result = JSON.stringify(automations);
+    if(result == '[]'){
+      result = '';
+    }
     jQuery('#importTextArea').val(result);
   });
 
@@ -37,6 +40,9 @@ jQuery(function(){
     // TODO: ask confirmation because the automations will be overwritten
 
     let importContent = jQuery('#importTextArea').val()
+    if(importContent == ''){
+      importContent = '[]';
+    }
     // TODO: check the parsification
     AutomateModel.setAutomations(JSON.parse(importContent));
     AutomateModel.save();
