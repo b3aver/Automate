@@ -254,7 +254,7 @@ AutomateView = {
     }
     let numParamsActual = jAction.find('.parameters .parameter').length;
     if(numParamsActual > numParams){
-      jAction.find('> .parameters .parameter:nth-last-child(-n+'
+      jAction.find('> .content .parameters .parameter:nth-last-child(-n+'
                    + (numParamsActual - numParams) + ')').remove();
     } else {
       while(numParamsActual < numParams) {
