@@ -22,6 +22,15 @@ AutomateView = {
     console.log('Error: ' + message);
   },
 
+  notify: function(message){
+    browser.notifications.create('automate-notification', {
+      'type': 'basic',
+      'iconUrl': browser.extension.getURL('icons/automate-48.png'),
+      'title': 'Automation',
+      'message': message
+    });
+  },
+
   refresh: function(automations){
     jQuery('#automations .automation').remove();
     automations.forEach(function(automation){
