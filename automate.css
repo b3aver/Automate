@@ -54,6 +54,13 @@ ul#automations, ul.actions {
     grid-column: 1;
 }
 
+.action.running {
+    background: lightgreen;
+}
+.action.error {
+    background: #ff6060;
+}
+
 .actionType.viewMode {
     font-weight: bold;
 }

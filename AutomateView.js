@@ -294,4 +294,17 @@ AutomateView = {
     jAutomation.find('.dropDownActionsButton').hide();
   },
 
+  /* change style of the action */
+  showActionStart: function(actionGuid) {
+    jQuery('.action.error').removeClass('error');
+    jQuery('.action.running').removeClass('running');
+    jQuery('.action#' + actionGuid).addClass('running');
+  },
+  showActionEnd: function(actionGuid) {
+    jQuery('.action#' + actionGuid).removeClass('running');
+  },
+  showActionError: function(actionGuid) {
+    jQuery('.action.running').removeClass('running');
+    jQuery('.action#' + actionGuid).addClass('error');
+  },
 };

@@ -107,6 +107,9 @@ AutomateController = {
       .then(function(){
         AutomateView.notify('Automation "' + automation.name + '" ended.');
         AutomateView.showMessage('Automation ended.');
+      }, function(){
+        AutomateView.notify('Automation "' + automation.name + '" ended with errors.');
+        AutomateView.showMessage('Automation ended with errors.');
       });
     AutomateView.showMessage('Automation is running...');
   },
