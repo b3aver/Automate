@@ -22,11 +22,13 @@ ul#automations, ul.actions {
 
     display: grid;
     grid-template-columns: 0fr 1fr;
+    grid-gap: 5px;
 }
 
 .action .controls {
     grid-column: 1;
     grid-row: 1;
+    background-color: #bab3b3;
 }
 
 .action .content {

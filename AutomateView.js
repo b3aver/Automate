@@ -193,6 +193,14 @@ AutomateView = {
     // guid
     jAction.find('> input.guid').val(action.guid);
 
+    // run just this action
+    jAction.find('.runActionButton').click(function(){
+      AutomateController.runAction(automationGuid, action.guid);
+    });
+    // run automation from this action
+    jAction.find('.runFromActionButton').click(function(){
+      AutomateController.runAutomationFrom(automationGuid, action.guid);
+    });
     // action type event
     jAction.find('select.actionType').change(function(){
       AutomateView.onChangeActionType(automationGuid, action.guid);

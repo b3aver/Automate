@@ -54,4 +54,8 @@ AutomateModel = {
     this.automations.splice(index, 1);
   },
 
+  getAction: function(automationGuid, actionGuid){
+    return this.getAutomation(automationGuid).actions.find(a => a.guid == actionGuid);
+  },
+
 };

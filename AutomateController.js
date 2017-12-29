@@ -114,6 +114,32 @@ AutomateController = {
     AutomateView.showMessage('Automation is running...');
   },
 
+  runAutomationFrom: function(automationGuid, actionGuid){
+    let automation = AutomateModel.getAutomation(automationGuid);
+    Automation.runFrom(automation, actionGuid)
+      .then(function(){
+        AutomateView.notify('Automation "' + automation.name + '" ended.');
+        AutomateView.showMessage('Automation ended.');
+      }, function(){
+        AutomateView.notify('Automation "' + automation.name + '" ended with errors.');
+        AutomateView.showMessage('Automation ended with errors.');
+      });
+    AutomateView.showMessage('Automation is running...');
+  },
+
+  runAction: function(automationGuid, actionGuid){
+    let action = AutomateModel.getAction(automationGuid, actionGuid);
+    Action.run(action)
+      .then(function(){
+        AutomateView.notify('Action "' + action.actionType + '" ended.');
+        AutomateView.showMessage('Action ended.');
+      }, function(){
+        AutomateView.notify('Action "' + action.name + '" ended with errors.');
+        AutomateView.showMessage('Action ended with errors.');
+      });
+    AutomateView.showMessage('Action is running...');
+  },
+
   saveAutomationsOrder: function(){
     let automationsGuid = AutomateView.getAutomationsOrder();
     AutomateModel.orderAutomations(automationsGuid);
