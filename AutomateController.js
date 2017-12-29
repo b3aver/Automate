@@ -20,14 +20,14 @@ AutomateController = {
 
   save: function(){
     AutomateModel.save().then(function(){
-      AutomateView.showMessage('Data saved in the storage.');
+      AutomateView.showMessageInfo('Data saved in the storage.');
     });
   },
 
   refresh: function(){
     AutomateModel.load().then(function(automations){
       AutomateView.refresh(automations);
-      AutomateView.showMessage('Data reloaded from the storage.');
+      AutomateView.showMessageInfo('Data reloaded from the storage.');
     });
   },
 
@@ -36,7 +36,7 @@ AutomateController = {
     // TODO: ask confirmation because the automations will be overwritten
     let filename = jQuery('#importFileInput').val().replace('C:\\fakepath\\', '');
     if (!filename) {
-      AutomateView.showError('Select a filename');
+      AutomateView.showMessageError('Select a filename');
     } else {
       let path = jQuery('#importFilePathInput').val() + '/' + filename;
       if (!path.startsWith('file://')) {
@@ -69,7 +69,7 @@ AutomateController = {
       AutomateModel.deleteAutomation(guid);
       AutomateModel.save().then(function(){
         AutomateView.deleteAutomation(guid);
-        AutomateView.showMessage('Automation successfully removed.');
+        AutomateView.showMessageInfo('Automation successfully removed.');
       });
     }
   },
@@ -85,7 +85,7 @@ AutomateController = {
     AutomateModel.saveAutomation(automationNew);
     AutomateModel.save().then(function(){
       AutomateView.setViewMode(guid);
-      AutomateView.showMessage('Automation successfully saved.');
+      AutomateView.showMessageInfo('Automation successfully saved.');
     });
   },
 
@@ -97,7 +97,7 @@ AutomateController = {
     } else {
       AutomateView.addAutomation(automation);
       AutomateView.setViewMode(guid);
-      AutomateView.showMessage('Automation\'s edits cancelled.');
+      AutomateView.showMessageDebug('Automation\'s edits cancelled.');
     }
   },
 
@@ -106,12 +106,12 @@ AutomateController = {
     Automation.run(automation)
       .then(function(){
         AutomateView.notify('Automation "' + automation.name + '" ended.');
-        AutomateView.showMessage('Automation ended.');
+        AutomateView.showMessageDebug('Automation ended.');
       }, function(){
         AutomateView.notify('Automation "' + automation.name + '" ended with errors.');
-        AutomateView.showMessage('Automation ended with errors.');
+        AutomateView.showMessageError('Automation ended with errors.');
       });
-    AutomateView.showMessage('Automation is running...');
+    AutomateView.showMessageDebug('Automation is running...');
   },
 
   runAutomationFrom: function(automationGuid, actionGuid){
@@ -119,12 +119,12 @@ AutomateController = {
     Automation.runFrom(automation, actionGuid)
       .then(function(){
         AutomateView.notify('Automation "' + automation.name + '" ended.');
-        AutomateView.showMessage('Automation ended.');
+        AutomateView.showMessageDebug('Automation ended.');
       }, function(){
         AutomateView.notify('Automation "' + automation.name + '" ended with errors.');
-        AutomateView.showMessage('Automation ended with errors.');
+        AutomateView.showMessageError('Automation ended with errors.');
       });
-    AutomateView.showMessage('Automation is running...');
+    AutomateView.showMessageDebug('Automation is running...');
   },
 
   runAction: function(automationGuid, actionGuid){
@@ -132,19 +132,19 @@ AutomateController = {
     Action.run(action)
       .then(function(){
         AutomateView.notify('Action "' + action.actionType + '" ended.');
-        AutomateView.showMessage('Action ended.');
+        AutomateView.showMessageDebug('Action ended.');
       }, function(){
         AutomateView.notify('Action "' + action.name + '" ended with errors.');
-        AutomateView.showMessage('Action ended with errors.');
+        AutomateView.showMessageError('Action ended with errors.');
       });
-    AutomateView.showMessage('Action is running...');
+    AutomateView.showMessageDebug('Action is running...');
   },
 
   saveAutomationsOrder: function(){
     let automationsGuid = AutomateView.getAutomationsOrder();
     AutomateModel.orderAutomations(automationsGuid);
     AutomateModel.save().then(function(){
-      AutomateView.showMessage('Sorting ended!!!');
+      AutomateView.showMessageDebug('Sorting ended!!!');
     });
   },
 
@@ -157,7 +157,7 @@ AutomateController = {
   deleteAction: function(automationGuid, actionGuid){
     if(confirm('Are you sure to delete this action?')){
       AutomateView.deleteAction(automationGuid, actionGuid);
-      AutomateView.showMessage('Action successfully removed.');
+      AutomateView.showMessageInfo('Action successfully removed.');
     }
   },
 

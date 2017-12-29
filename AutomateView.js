@@ -12,14 +12,24 @@ AutomateView = {
     });
   },
 
-  showMessage: function(message){
-    // TODO: implement
-    console.log('Message: ' + message);
+  showMessageInfo: function(message){
+    AutomateView.showMessage(message, 'info');
   },
 
-  showError: function(message){
-    // TODO: implement
-    console.log('Error: ' + message);
+  showMessageError: function(message){
+    AutomateView.showMessage(message, 'error');
+  },
+
+  showMessageDebug: function(message){
+    AutomateView.showMessage(message, 'debug');
+  },
+
+  showMessage: function(message, level){
+    let li = jQuery('<li>' + message + '</li>');
+    jQuery('.messageBox.' + level).append(li);
+    setTimeout(function(){
+      li.remove();
+    }, 5000);
   },
 
   notify: function(message){

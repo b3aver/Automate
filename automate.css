@@ -1,3 +1,31 @@
+/* Message Box */
+
+.messageBox {
+    border-width: 3px;
+    border-style: solid;
+    padding: 3px;
+}
+
+ul.messageBox li {
+    list-style: none;
+}
+
+.messageBox:empty {
+    display: none;
+}
+
+.messageBox.info {
+    border-color: green;
+}
+
+.messageBox.error {
+    border-color: red;
+}
+
+.messageBox.debug {
+    border-color: gray;
+}
+
 
 /* Automation */
 

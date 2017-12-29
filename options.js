@@ -29,9 +29,9 @@ jQuery(function(){
         url: URL.createObjectURL(blob),
         filename: 'automations_' + dateFormatted + '.json'
       }).then(function (id) {
-        AutomateView.showMessage('Download started');
+        AutomateView.showMessageInfo('Download started');
       }, function (error) {
-        AutomateView.showError('Download failed');
+        AutomateView.showMessageError('Download failed');
       })
     });
   });
