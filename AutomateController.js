@@ -4,10 +4,6 @@ AutomateController = {
 
     AutomateController.refresh();
 
-    jQuery('#save').click(function(){
-      AutomateController.save();
-    });
-
     jQuery('#refresh').click(function(){
       AutomateController.refresh();
     });
@@ -71,8 +67,10 @@ AutomateController = {
   deleteAutomation: function(guid){
     if(confirm('Are you sure to delete this automation?')){
       AutomateModel.deleteAutomation(guid);
-      AutomateView.deleteAutomation(guid);
-      AutomateView.showMessage('Automation successfully removed.');
+      AutomateModel.save().then(function(){
+        AutomateView.deleteAutomation(guid);
+        AutomateView.showMessage('Automation successfully removed.');
+      });
     }
   },
 
@@ -85,8 +83,10 @@ AutomateController = {
   saveAutomation: function(guid){
     let automationNew = AutomateView.saveAutomation(guid);
     AutomateModel.saveAutomation(automationNew);
-    AutomateView.setViewMode(guid);
-    AutomateView.showMessage('Automation successfully saved.');
+    AutomateModel.save().then(function(){
+      AutomateView.setViewMode(guid);
+      AutomateView.showMessage('Automation successfully saved.');
+    });
   },
 
   cancelEditAutomation: function(guid){
