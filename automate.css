@@ -109,6 +109,10 @@ ul#automations, ul.actions {
     width: 100%;
 }
 
+.hidden {
+    display: none !important;
+}
+
 
 /* sortable */
 

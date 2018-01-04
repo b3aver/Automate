@@ -161,4 +161,27 @@ AutomateController = {
     }
   },
 
+  pickElement: function(tags){
+    let p = browser.tabs.executeScript({
+      file: '/lib/css-selector-generator.min.js'
+    }).then(function(){
+      return browser.tabs.executeScript({
+        file: '/content_scripts/pick_element.js'
+      });
+    }).then(function(){
+      return browser.tabs.executeScript({
+        code: 'admittedTags = ' + JSON.stringify(tags) + ';'
+      });
+    }).then(function(){
+      let pp = new Promise(function(resolve, reject){
+        browser.runtime.onMessage.addListener(function (message) {
+          resolve(message);
+        });
+      });
+      return pp;
+    });
+
+    return p
+  },
+
 };

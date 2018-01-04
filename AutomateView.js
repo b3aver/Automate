@@ -178,7 +178,7 @@ AutomateView = {
     AutomateView.disableEdit();
     AutomateView.dropDownActions(guid);
     jQuery('#' + guid + ' .viewMode').hide();
-    jQuery('#' + guid + ' .editMode').show();
+    jQuery('#' + guid + ' .editMode:not(.hidden)').show();
   },
 
   setViewMode: function(guid){
@@ -225,7 +225,8 @@ AutomateView = {
       jQuery('#templates .parameter').clone()
         .appendTo(jAction.find('.parameters'));
       let jParameter = jAction.find('.parameters .parameter:last-child');
-      AutomateView.prepareParameter(jParameter, action.actionType, param, index + 1);
+      AutomateView.prepareParameter(jParameter, action.actionType, param,
+                                    index + 1);
     });
   },
 
@@ -248,6 +249,21 @@ AutomateView = {
       jParameter.find('.parameterValue.viewMode').html(param);
       jParameter.find('.parameterValue.viewMode').attr('title', param);
     }
+    // manage pick element button
+    if (nth == 1 && (actionType == 'fill' || actionType == 'fillPassword'
+                     || actionType == 'click' || actionType == 'submit')){
+      jParameter.find('.pickElementButton').removeClass('hidden');
+    } else {
+      jParameter.find('.pickElementButton').addClass('hidden');
+    }
+    jParameter.find('.pickElementButton').click(function(){
+      jQuery('.pickElementButton').addClass('md-inactive');
+      let admittedTags = ActionType[actionType].admittedTags;
+      AutomateController.pickElement(admittedTags).then(function(selectedTag){
+        jParameter.find('.parameterValue.editMode').val(selectedTag.selector);
+        jQuery('.pickElementButton').removeClass('md-inactive');
+      });
+    });
   },
 
   getParameterValue: function(jParameter, actionType){
@@ -265,20 +281,7 @@ AutomateView = {
   onChangeActionType: function(automationGuid, actionGuid){
     let jAction = jQuery('#' + automationGuid + ' #' + actionGuid);
     let actionType = jAction.find('select.actionType').val();
-    let numParams = 1;
-    switch(actionType){
-    case 'reload':
-      numParams = 1;
-      break;
-    case 'gotoUrl':
-    case 'submit':
-    case 'click':
-      numParams = 1;
-      break;
-    case 'fill':
-    case 'fillPassword':
-      numParams = 2;
-    }
+    let numParams = ActionType[actionType].numParams;
     let numParamsActual = jAction.find('.parameters .parameter').length;
     if(numParamsActual > numParams){
       jAction.find('> .content .parameters .parameter:nth-last-child(-n+'
